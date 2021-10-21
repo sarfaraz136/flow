@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="bc7ff9ad-32af-432b-a611-d2021e344c64" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="flow123Flow" doc:id="8e8ff13a-38ea-4416-9dbe-0ee962beb6f8" >
+		<http:listener doc:name="Listener" doc:id="71e7a408-dc67-49e9-9d9c-797300695ac6" path="/flow123" config-ref="HTTP_Listener_config"/>
+		<set-payload value='#["This is set payload"]' doc:name="Set Payload" doc:id="a2b24646-dd22-40d9-ace4-6c17e2d70d0d" />
+		<logger level="INFO" doc:name="Logger" doc:id="dba02b07-8763-443a-a8ad-2d5a2f39fddd" message="#[payload]"/>
+	</flow>
+	<sub-flow name="flowSub_Flow" doc:id="1e3198b1-62b0-4432-849a-2059ab289352" >
+		<set-payload value='#["This is sub flow set payload"]' doc:name="Set Payload" doc:id="ae8360d0-35c4-41a9-896b-8bddcc9d7128" />
+		<logger level="INFO" doc:name="Logger" doc:id="411fa70e-2fb6-4457-baf4-2ec861817663" message="#[payload]"/>
+	</sub-flow>
+	<flow name="flowFlow1" doc:id="0579fed3-447c-4101-89b4-deaf217494b4" >
+		<set-payload value='#["This is set payload of sub flow"]' doc:name="Set Payload" doc:id="fc3b06c1-59c7-410e-8cc2-dd3169aba7ff" />
+		<logger level="INFO" doc:name="Logger" doc:id="7be04057-8b4e-4444-9422-0eb77f695c63" message="#[payload]"/>
+	</flow>
+</mule>
